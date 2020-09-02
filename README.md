@@ -1,2 +1,1 @@
-# todo-list-training
-project for training
+first project by video tutorials by DevEd
