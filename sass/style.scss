@@ -49,9 +49,11 @@ form {
     display: flex;
     justify-content: center;
   }
+
   &-list {
     min-width: 30%;
   }
+
   &-item {
     display: flex;
     justify-content: space-between;
@@ -61,10 +63,12 @@ form {
     background: $white;
     color: $black;
   }
+
   &-info {
     font-size: 1.5rem;
     padding: 0 0.5rem;
   }
+
   &-input,
   &-button {
     padding: 0.5rem;
@@ -72,9 +76,11 @@ form {
     border: none;
     background: $white;
   }
+
   &-nav {
     display: flex;
   }
+
   &-check,
   &-trash {
     background: $orange;
@@ -91,6 +97,7 @@ form {
     background: darken($peach, 7%);
     color: $white;
     transition: all 0.3s ease;
+
     &:hover {
       background: darken($peach, 10%);
     }

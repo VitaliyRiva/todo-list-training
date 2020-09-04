@@ -7,18 +7,19 @@ const todoMark = document.querySelector('.todo-check');
 const todoTrash = document.querySelector('.todo-trash');
 
 //Event listeners
-todoButton.addEventListener('click', addTodo);
+todoButton.addEventListener('click', addTodoHandler);
 //Functions
 
-function addTodo(event) {
+const todoElements = [];
+
+function addTodo(id, title) {
   //Prevent form submitting
   event.preventDefault();
   //Todo Container
   const todoContainer = document.createElement('li');
-  todoContainer.innerText = todoInput.value;
   todoContainer.classList.add('todo-item');
   todoContainer.innerHTML = `
-    <span class="todo-info">${todoInput.value}</span>
+    <span class="todo-info">${title}</span>
     <div class="todo-nav">
       <button class="todo-check">
         <i class="fas fa-check"></i>
@@ -28,21 +29,29 @@ function addTodo(event) {
       </button>
     </div>`;
   todoList.appendChild(todoContainer);
-
   //Clear Input Value
   todoInput.value = '';
-
-  const todoTrash = document.querySelector('.todo-trash');
-  todoTrash.addEventListener('click', trashTodo);
-
-  trashTodo(todoList);
-
+  console.log(todoElements)
 }
 
-function trashTodo() {
-  for (i = 0, tmp = []; i < todoList.children.length; i++)
-    tmp.push(todoList.children[i]);
-  console.log(tmp);
-  return tmp;
+
+function addTodoHandler() {
+  const titleValue = todoInput.value;
+
+  // add object with key and value
+  const newTodo = {
+    id: Math.floor(Math.random() * 16),
+    title: titleValue,
+  };
+
+  //call fn add with params
+  addTodo(
+    newTodo.id,
+    newTodo.title);
+
+  //pushing elements
+  todoElements.push(newTodo);
 }
 
+
+// добавить данные в массив с  id / title / poz /
