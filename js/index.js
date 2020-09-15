@@ -1,16 +1,49 @@
 //Selectors
 const todoInput = document.querySelector('.todo-input');
+const entrySection = document.getElementById('entrySection');
 const todoButton = document.querySelector('.todo-button');
 const todoList = document.querySelector('.todo-list');
 const todoListItem = document.querySelectorAll('.todo-item');
 const todoMark = document.querySelector('.todo-check');
-const todoTrash = document.querySelector('.todo-trash');
+
 
 //Event listeners
 todoButton.addEventListener('click', addTodoHandler);
+
 //Functions
 
 const todoElements = [];
+
+function updateUI() {
+  if (todoElements.length === 0) {
+    entrySection.style.display = 'block';
+  } else {
+    entrySection.style.display = 'none';
+  }
+};
+
+
+function deleteToDo(todoId) {
+  let identifiedIndex = 0;
+  for (const todo of todoElements) {
+    if (newTodo.id === todoId) {
+      break;
+    }
+    identifiedIndex++;
+  }
+  todoElements.splice(identifiedIndex, 1);
+  todoList.children[identifiedIndex].remove(todoId);
+  updateUI();
+}
+
+
+function deleteHandler(todoId) {
+  let todoTrash = document.querySelector('.todo-trash');
+  todoTrash.replaceWith(todoTrash.cloneNode(true));
+  todoTrash.addEventListener('click', deleteToDo.bind(null, todoId));
+  console.log('deleted');
+};
+
 
 function addTodo(id, title) {
   //Prevent form submitting
@@ -19,7 +52,7 @@ function addTodo(id, title) {
   const todoContainer = document.createElement('li');
   todoContainer.classList.add('todo-item');
   todoContainer.innerHTML = `
-    <span class="todo-info">${title}</span>
+    <span class="todo-info" id="${id}">${title}</span>
     <div class="todo-nav">
       <button class="todo-check">
         <i class="fas fa-check"></i>
@@ -28,11 +61,14 @@ function addTodo(id, title) {
         <i class="fas fa-trash"></i>
       </button>
     </div>`;
+  todoContainer.addEventListener('click', deleteHandler.bind(null, id));
+  const todoList = document.querySelector('.todo-list');
   todoList.appendChild(todoContainer);
+  updateUI();
+
   //Clear Input Value
   todoInput.value = '';
-  console.log(todoElements)
-}
+};
 
 
 function addTodoHandler() {
@@ -40,7 +76,7 @@ function addTodoHandler() {
 
   // add object with key and value
   const newTodo = {
-    id: Math.floor(Math.random() * 16),
+    id: Math.floor(Math.random() * 16 + 1),
     title: titleValue,
   };
 
@@ -48,10 +84,8 @@ function addTodoHandler() {
   addTodo(
     newTodo.id,
     newTodo.title);
-
   //pushing elements
   todoElements.push(newTodo);
-}
+  updateUI();
+};
 
-
-// добавить данные в массив с  id / title / poz /
