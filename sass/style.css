@@ -86,6 +86,10 @@ form {
   padding: 0 0.5rem;
 }
 
+.todo-info.done {
+  text-decoration: line-through;
+}
+
 .todo-input, .todo-button {
   padding: 0.5rem;
   font-size: 2rem;
