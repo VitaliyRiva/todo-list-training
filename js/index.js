@@ -8,7 +8,7 @@ const todoList = document.querySelector('.todo-list');
 
 //Event listeners
 todoButton.addEventListener('click', addTodoHandler);
-// todoList.addEventListener('click', markToDo);
+todoList.addEventListener('click', markToDo);
 //Functions
 
 let todoElements = [];
@@ -21,13 +21,12 @@ function updateUI() {
   }
 };
 
-function addTodo(id, title) {
+function addTodo(title) {
   //Prevent form submitting
   event.preventDefault();
   //Todo Container
   const todoContainer = document.createElement('li');
   todoContainer.classList.add('todo-item');
-  todoContainer.setAttribute('id', id);
   todoContainer.innerHTML = `
     <span class="todo-info">${title}</span>
     <div class="todo-nav">
@@ -38,7 +37,6 @@ function addTodo(id, title) {
         <i class="fas fa-trash"></i>
       </button>
     </div>`;
-  todoList.addEventListener('click', deleteHandler.bind(null, id));
   todoList.appendChild(todoContainer);
   //Clear Input Value
   todoInput.value = '';
@@ -51,13 +49,11 @@ function addTodoHandler() {
 
   // add object with key and value
   const newTodo = {
-    id: Math.floor(Math.random() * 10),
     title: titleValue
   };
 
   //call fn add with params
   addTodo(
-    newTodo.id,
     newTodo.title);
   //pushing elements
   todoElements.push(newTodo);
@@ -65,22 +61,15 @@ function addTodoHandler() {
 };
 
 
-function deleteTodo(todoId) {
-  let identifiedIndex = 0;
-  for (const el of todoElements) {
-    if (el.id === todoId) {
-      break;
-    }
-    identifiedIndex++;
+function markToDo(e) {
+  const item = e.target;
+  const todoMark = item.parentElement.parentElement;
+  if (item.classList[0] === 'todo-trash') {
+    todoMark.remove();
+    todoElements.splice(0, 1);
+    updateUI();
   }
-  todoElements.splice(identifiedIndex, 1);
-  todoList.children[identifiedIndex].remove();
-  console.log(todoId);
-  updateUI();
-}
-
-function deleteHandler(todoId) {
-  let todoBtntnTrash = document.querySelector('.todo-trash');
-  todoBtntnTrash.addEventListener('click', deleteTodo.bind(null, todoId));
-  updateUI();
+  if (item.classList[0] === 'todo-check') {
+    todoMark.children[0].classList.toggle('done');
+  }
 }
