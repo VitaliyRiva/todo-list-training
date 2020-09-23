@@ -21,12 +21,13 @@ function updateUI() {
   }
 };
 
-function addTodo(title) {
+function addTodo(title, id) {
   //Prevent form submitting
   event.preventDefault();
   //Todo Container
   const todoContainer = document.createElement('li');
   todoContainer.classList.add('todo-item');
+  todoContainer.setAttribute('id', id);
   todoContainer.innerHTML = `
     <span class="todo-info">${title}</span>
     <div class="todo-nav">
@@ -49,12 +50,14 @@ function addTodoHandler() {
 
   // add object with key and value
   const newTodo = {
-    title: titleValue
+    title: titleValue,
+    id: Math.floor(Math.random() * 10)
   };
 
   //call fn add with params
   addTodo(
-    newTodo.title);
+    newTodo.title,
+    newTodo.id);
   //pushing elements
   todoElements.push(newTodo);
   updateUI();
@@ -65,6 +68,7 @@ function markToDo(e) {
   const item = e.target;
   const todoMark = item.parentElement.parentElement;
   if (item.classList[0] === 'todo-trash') {
+    todoElements.filter(elem => elem.id);
     todoMark.remove();
     todoElements.splice(0, 1);
     updateUI();
@@ -72,4 +76,13 @@ function markToDo(e) {
   if (item.classList[0] === 'todo-check') {
     todoMark.children[0].classList.toggle('done');
   }
+}
+
+
+function delition(id) {
+  index = todoElements.map(function (item) {
+    return item.id
+  }).indexOf(5);
+
+  myArr.splice(index, 1);
 }
