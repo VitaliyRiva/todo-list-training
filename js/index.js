@@ -68,21 +68,17 @@ function markToDo(e) {
   const item = e.target;
   const todoMark = item.parentElement.parentElement;
   if (item.classList[0] === 'todo-trash') {
+    // Filter elements 
     todoElements.filter(elem => elem.id);
-    todoMark.remove();
+    // Animation
+    todoMark.classList.add('fall');
+    todoMark.addEventListener('transitioned', function () {
+      todoMark.remove();
+    });
     todoElements.splice(0, 1);
     updateUI();
   }
   if (item.classList[0] === 'todo-check') {
-    todoMark.children[0].classList.toggle('done');
+    todoMark.classList.toggle('done');
   }
-}
-
-
-function delition(id) {
-  index = todoElements.map(function (item) {
-    return item.id
-  }).indexOf(5);
-
-  myArr.splice(index, 1);
 }

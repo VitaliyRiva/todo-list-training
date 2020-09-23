@@ -81,13 +81,24 @@ form {
   color: #000;
 }
 
+.todo-item.done {
+  text-decoration: line-through;
+  opacity: .5;
+  -webkit-transition: all .5s ease;
+  transition: all .5s ease;
+}
+
+.todo-item.fall {
+  -webkit-transform: translateY(8rem) rotateZ(20deg);
+          transform: translateY(8rem) rotateZ(20deg);
+  opacity: 0;
+  -webkit-transition: all .5s ease;
+  transition: all .5s ease;
+}
+
 .todo-info {
   font-size: 1.5rem;
   padding: 0 0.5rem;
-}
-
-.todo-info.done {
-  text-decoration: line-through;
 }
 
 .todo-input, .todo-button {
